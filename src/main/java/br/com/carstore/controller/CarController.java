@@ -14,16 +14,15 @@ public class CarController {
     @GetMapping("/index")
     public String exibirFormulario(Model model) {
         model.addAttribute("carDTO", new CarDTO());
-        return "index"; // Retorna o nome do template
+        return "index";
     }
 
     @PostMapping("/carros")
     public String salvarCarro(@Valid CarDTO carDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return "index"; // Em caso de erro, retorna ao formulário com as mensagens
+            return "index";
         }
 
-        // Se a validação for bem-sucedida, você pode processar os dados
         System.out.println("Carro validado com sucesso: " + carDTO.getName() + ", " + carDTO.getColor());
 
         return "redirect:/sucesso";

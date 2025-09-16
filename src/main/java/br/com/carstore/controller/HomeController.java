@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class HomeController {
     public String createCar(@Valid CarDTO carDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("carDTO", carDTO);
-            return "index"; // Recarrega o formulário com mensagens de erro
+            return "index";
         }
 
         service.save(carDTO);
@@ -43,5 +44,22 @@ public class HomeController {
         model.addAttribute("cars", allCars);
         System.out.println("Carros carregados: " + allCars.size());
         return "dashboard";
+    }
+
+    @GetMapping("/cars/delete/{id}")
+    public String deleteCar(@PathVariable String id) {
+        service.deleteById(id);
+        return "redirect:/cars";
+    }
+
+    @GetMapping("/cars/edit/{id}")
+    public String editForm(@PathVariable String id, Model model) {
+        CarDTO car = service.findAll().stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+
+        model.addAttribute("carDTO", car);
+        return "index";
     }
 }
