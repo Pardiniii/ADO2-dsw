@@ -22,7 +22,6 @@ public class CarController {
         if (result.hasErrors()) {
             return "index";
         }
-
         System.out.println("Carro validado com sucesso: " + carDTO.getName() + ", " + carDTO.getColor());
 
         return "redirect:/sucesso";

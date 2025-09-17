@@ -18,6 +18,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Nome</th>
         <th>Cor</th>
         <th>Ações</th>
@@ -25,6 +26,7 @@
     </thead>
     <tbody>
     <tr th:each="car : ${cars}">
+        <td th:text="${car.id}">ID</td>
         <td th:text="${car.name}">Nome</td>
         <td th:text="${car.color}">Cor</td>
         <td>
@@ -38,13 +40,12 @@
 
 <div class="remove-form">
     <h3>Remover carro manualmente por ID</h3>
-    <form th:action="@{/cars/delete/__id__}" method="get"
-          onsubmit="return confirm('Tem certeza que deseja excluir este carro?');">
+    <form method="get"
+          onsubmit="this.action = '/cars/delete/' + document.getElementById('carId').value;
+                    return confirm('Tem certeza que deseja excluir este carro?');">
         <label for="carId">ID do carro:</label>
         <input type="text" id="carId" name="id">
-        <button type="submit" onclick="this.form.action = '/cars/delete/' + document.getElementById('carId').value">
-            Remover
-        </button>
+        <button type="submit">Remover</button>
     </form>
 </div>
 
