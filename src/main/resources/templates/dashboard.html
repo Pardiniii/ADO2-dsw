@@ -2,53 +2,36 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Carros Cadastrados</title>
-    <style>
-        .remove-form {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: fit-content;
-        }
-    </style>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Dashboard de Carros</h1>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container mt-5">
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Cor</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.id}">ID</td>
-        <td th:text="${car.name}">Nome</td>
-        <td th:text="${car.color}">Cor</td>
-        <td>
-            <a th:href="@{'/cars/edit/' + ${car.id}}">Editar</a>
-            <a th:href="@{'/cars/delete/' + ${car.id}}"
-               onclick="return confirm('Deseja realmente excluir este carro?');">Excluir</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <h1 class="mb-4">Dashboard</h1>
 
-<div class="remove-form">
-    <h3>Remover carro manualmente por ID</h3>
-    <form method="get"
-          onsubmit="this.action = '/cars/delete/' + document.getElementById('carId').value;
-                    return confirm('Tem certeza que deseja excluir este carro?');">
-        <label for="carId">ID do carro:</label>
-        <input type="text" id="carId" name="id">
-        <button type="submit">Remover</button>
-    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cor</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.name}"></td>
+            <td th:text="${car.color}"></td>
+            <td><!-- Ações futuras --></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
-<p><a th:href="@{/}">Cadastrar Novo Carro</a></p>
+<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>

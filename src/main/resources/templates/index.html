@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Carro</title>
-    <style>
-        .error { color: red; font-size: 0.8em; }
-    </style>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Cadastrar Novo Carro</h1>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
 
-<form action="#" th:action="@{/cars}" th:object="${carDTO}" method="post">
-    <div>
-        <label for="name">Nome:</label>
-        <input type="text" id="name" th:field="*{name}">
-        <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </div>
-    <div>
-        <label for="color">Cor:</label>
-        <input type="text" id="color" th:field="*{color}">
-        <span class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></span>
-    </div>
-    <div>
-        <button type="submit">Salvar</button>
-    </div>
-</form>
+    <form action="#" th:action="@{/cars}" th:object="${carDTO}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control">
+            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="color" class="form-label">Cor:</label>
+            <input type="text" id="color" th:field="*{color}" class="form-control">
+            <span class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+
+</div>
+
+<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
